@@ -1,13 +1,20 @@
+/// This is a util function for generating the login buttons in the LoginPage,
+/// Set the default value of fields: title, url, and color.
 import 'package:flutter/material.dart';
 
-Widget button(title, uri, [color = const Color.fromRGBO(68, 68, 76, .8) ]) {
+num buttonWidth = 190.1;
+num iconWidth = 25.1;
+num middlePadding = 20.1;
+const Color defaultFontColor = const Color.fromRGBO(68, 68, 76, .8);
+
+Widget button({ title = "", url = "", color = defaultFontColor }) {
   return Container(
-    width: 190.0,
+    width: buttonWidth,
     child: Center(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          leading(uri),
+          leadingIcon(url),
           Padding(
             child: Text(
               "Sign in with $title",
@@ -16,7 +23,7 @@ Widget button(title, uri, [color = const Color.fromRGBO(68, 68, 76, .8) ]) {
                 color: color,
               ),
             ),
-            padding: new EdgeInsets.only(left: 20.0),
+            padding: new EdgeInsets.only(left: middlePadding),
           ),
         ],
       ),
@@ -24,17 +31,18 @@ Widget button(title, uri, [color = const Color.fromRGBO(68, 68, 76, .8) ]) {
   );
 }
 
-Widget leading(uri){
-  if (uri == "")
+Widget leadingIcon(url){
+  if (url == "")
     return Container(
-      width: 25.0,
+      width: iconWidth,
       child: Icon(
         Icons.email,
+        color: Colors.white,
       ),
     );
   return Image.asset(
-      uri,
-      width: 25.0,
+      url,
+      width: iconWidth,
     );
 
 }
