@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linger/presenters/redux.dart';
 
 class EmailForm extends StatefulWidget {
   @override
@@ -67,6 +68,7 @@ class _EmailFormState extends State<EmailForm> {
     var form = formKey.currentState;
 
     if (form.validate()) {
+      store.dispatch(LoginAction());
       form.save();
       setState(() {
         Navigator.of(context).pop();
