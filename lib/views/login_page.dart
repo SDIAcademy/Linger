@@ -27,7 +27,6 @@ class LoginPageState extends State<LoginPage> {
           api = await FireBaseApi.signInWithGoogle();
           break;
         case "facebook":
-          api = await FireBaseApi.signInWithFacebook();
           break;
 
       }
