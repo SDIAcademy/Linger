@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "998867703625",
+    "firebase_url": "https://linger-b6669.firebaseio.com",
+    "project_id": "linger-b6669",
+    "storage_bucket": "linger-b6669.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998867703625:android:c7915c7abbcc52cc",
+        "android_client_info": {
+          "package_name": "com.sdi.linger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998867703625-6q90sulrnihe2qs29346daq1rvp35t91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sdi.linger",
+            "certificate_hash": "7ef41043f2dae03f0ad6715c8bafd86a7b043c94"
+          }
+        },
+        {
+          "client_id": "998867703625-npp2ncgv78m95cs26l0sdimv33mka115.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "998867703625-npp2ncgv78m95cs26l0sdimv33mka115.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_cUBrHvPTW7VAazLFRxSl_majnbq3uxU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998867703625-npp2ncgv78m95cs26l0sdimv33mka115.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

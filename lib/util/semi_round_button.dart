@@ -52,7 +52,6 @@ class SemiRoundedBorderButton extends StatelessWidget {
                 color: Colors.transparent,
                 child: new InkWell(
                   borderRadius: radius,
-                  // splashColor: Colors.lightGreenAccent,
                   onTap: () => onPressed,
                 ),
               ),

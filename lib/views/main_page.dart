@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:linger/config/navigator_button_data.dart';
 import 'package:linger/presenters/redux.dart';
@@ -12,8 +13,10 @@ class MainPage extends StatelessWidget {
     return StoreConnector<AppState, dynamic>(
         converter: (store) => () => store.state.user,
         builder: (context, callback) {
-          if (callback() == null) return LoginPage();
-          return UserPage();
+          if (callback() != null) {
+            return UserPage();
+          }
+          return LoginPage();
         });
   }
 }
@@ -26,7 +29,8 @@ class UserPage extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image(
-            image: NetworkImage("https://images.homedepot-static.com/productImages/e8ff78f4-5f22-408e-bce3-2bec3f1b3cc6/svn/saratoga-hickory-trafficmaster-laminate-wood-flooring-34089-64_1000.jpg"),
+            image: NetworkImage(
+                "https://images.homedepot-static.com/productImages/e8ff78f4-5f22-408e-bce3-2bec3f1b3cc6/svn/saratoga-hickory-trafficmaster-laminate-wood-flooring-34089-64_1000.jpg"),
             fit: BoxFit.cover,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -36,10 +40,25 @@ class UserPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                    minRadius: 50.0,
-                    child: Image.network(
-                        "https://www.shareicon.net/data/128x128/2016/08/18/810199_user_512x512.png")),
+                StreamBuilder(
+                  stream: FirebaseAuth.instance.currentUser().asStream(),
+                  builder: (BuildContext ctx,
+                          AsyncSnapshot<FirebaseUser> snapshot) =>
+                      CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: NetworkImage(snapshot.data.photoUrl),
+                        child: Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                          child: InkWell(
+                            radius: 50.0,
+                            onTap: () {
+                              Navigator.of(ctx).pushNamed("/profile");
+                            },
+                          ),
+                        ),
+                      ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
                 ),

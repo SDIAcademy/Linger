@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:linger/presenters/redux.dart';
 import './views/main_page.dart';
 import './views/email_form.dart';
+import './views/profile.dart';
 
 void main() {
   return runApp(Linger());
@@ -15,17 +16,17 @@ class Linger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(store.state);
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
         title: "Linger",
         theme:
-            ThemeData(primarySwatch: Colors.blue, indicatorColor: Colors.blue),
+            ThemeData(primarySwatch: Colors.pink, indicatorColor: Colors.blueGrey),
         home:
         MainPage(),
         routes: <String, WidgetBuilder>{
           '/emailForm': (BuildContext context) => EmailForm(),
+          '/profile': (BuildContext context) => Profile(),
         },
         debugShowCheckedModeBanner: false,
       ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:linger/presenters/user.dart';
 import 'package:redux/redux.dart';
 
@@ -8,13 +9,15 @@ class AppState {
 }
 
 class LoginAction{
-
+  var user;
+  LoginAction({this.user});
 }
 
 AppState reducer(AppState prev, action) {
   if (action is LoginAction) {
-    User _user;
-    _user = User(name: "Z", userRef: "001");
+    FirebaseUser _userRef;
+    _userRef = action.user;
+    User _user = User(userRef: _userRef);
     return AppState(user: _user);
   }
   return prev;
