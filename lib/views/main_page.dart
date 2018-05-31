@@ -2,19 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:linger/config/navigator_button_data.dart';
 import 'package:linger/presenters/redux.dart';
+// import 'package:linger/util/flutter_auth.dart';
 // import 'package:linger/presenters/redux.dart';
 import 'login_page.dart';
 import 'loading_page.dart';
+import 'intro_page.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import '../util/semi_round_button.dart';
+import '../util/timer.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  MainPageState createState() {
+    return new MainPageState();
+  }
+}
+
+class MainPageState extends State<MainPage> {
+  bool intro;
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      intro = true;
+      startTimeout(
+        () => setState((){
+          intro = false;
+        }),
+        3000
+      );
+    }
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, dynamic>(
         converter: (store) => store,
         builder: (context, store) {
-          if (store.state.user == null) {
+          if (intro) return IntroPage();
+          else if (store.state.user == null) {
             if (store.state.pending) return LoadingPage();
             return LoginPage();
           } else {

@@ -5,6 +5,7 @@ import 'package:linger/presenters/user.dart';
 class AppState {
   final user;
   bool pending;
+  set user(theUser) => user = theUser;
   AppState({this.user, this.pending});
   AppState.initialState()
       : user = null,
