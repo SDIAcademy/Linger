@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:redux/redux.dart';
 import 'package:linger/presenters/redux.dart';
+import 'package:redux/redux.dart';
 import './views/main_page.dart';
 import './views/email_form.dart';
 import './views/profile.dart';
@@ -11,9 +12,7 @@ void main() {
 }
 
 class Linger extends StatelessWidget {
-  
-  // final store = Store<AppState>(reducer, initialState: AppState.initialState());
-
+  final store = Store(reducer, initialState: AppState.initialState());
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(

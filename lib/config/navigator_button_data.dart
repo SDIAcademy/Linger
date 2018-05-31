@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 List<String> navigatorTitles = [ "GENERAL", "DOCTORS VISIT", "WORK", "GROCERY SHOPPING" ];
 class NavigatorButton {
-  final String imageUrl, progress, title;
+  final String imageUrl, title;
   final Color colorOverlay;
   NavigatorButton(
-      {this.title, this.progress, this.imageUrl, this.colorOverlay});
+      {this.title, this.imageUrl, this.colorOverlay});
 }
 
 final List<NavigatorButton> navigatorButtonData = [

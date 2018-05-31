@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../util/login_button.dart';
 import 'package:linger/presenters/redux.dart';
 import '../util/flutter_auth.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,25 +17,31 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return selectionPage();
+    return StoreConnector<AppState, dynamic>(
+      converter: (store) => ({user, pending}) {
+        if (user != null) store.dispatch(LoginAction(user: user));
+        if (pending != null) store.dispatch(LoadingAction(pending: pending));
+      },  
+      builder: (context, viewModel) => selectionPage(viewModel),
+    );
   }
 
-  Widget selectionPage() {
+  Widget selectionPage(viewModel) {
     Future<Null> _loginUser({method}) async {
       var api;
-      switch(method){
+      switch (method) {
         case "google":
-          api = await FireBaseApi.signInWithGoogle();
+          api = await FireBaseApi.signInWithGoogle(viewModel);
           break;
         case "facebook":
           break;
-
       }
       if (api != null) {
         var _user = await FirebaseAuth.instance.currentUser();
-        store.dispatch(LoginAction(user: _user));
+        viewModel(user: _user);
       }
     }
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(42, 42, 42, 1.0),
       body: Stack(
@@ -76,11 +83,6 @@ class LoginPageState extends State<LoginPage> {
                       url: 'assets/facebook.png',
                       color: Colors.white),
                   onPressed: () => _loginUser(method: "facebook"),
-                  // onPressed: () {
-                  //   print(1);
-                  //   print(store.state.user);
-                  //   // store.dispatch(LoginAction());
-                  // },
                   color: Color.fromRGBO(58, 89, 152, 1.0),
                 ),
                 Container(

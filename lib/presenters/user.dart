@@ -5,7 +5,6 @@ import '../models/user_progress.dart';
 
 class User{
   FirebaseUser userRef;
-  String id, name;
   User({ this.userRef });
 
   // void getProgress(){

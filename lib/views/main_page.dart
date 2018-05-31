@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:linger/config/navigator_button_data.dart';
 import 'package:linger/presenters/redux.dart';
 // import 'package:linger/presenters/redux.dart';
 import 'login_page.dart';
+import 'loading_page.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import '../util/semi_round_button.dart';
 
@@ -11,12 +12,15 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, dynamic>(
-        converter: (store) => () => store.state.user,
-        builder: (context, callback) {
-          if (callback() != null) {
+        converter: (store) => store,
+        builder: (context, store) {
+          if (store.state.user == null) {
+            if (store.state.pending) return LoadingPage();
+            return LoginPage();
+          } else {
+            store.dispatch(LoadingAction(pending: false));
             return UserPage();
           }
-          return LoginPage();
         });
   }
 }
@@ -41,24 +45,32 @@ class UserPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 StreamBuilder(
-                  stream: FirebaseAuth.instance.currentUser().asStream(),
-                  builder: (BuildContext ctx,
-                          AsyncSnapshot<FirebaseUser> snapshot) =>
-                      CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage: NetworkImage(snapshot.data.photoUrl),
-                        child: Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(Radius.circular(100.0)),
-                          child: InkWell(
-                            radius: 50.0,
-                            onTap: () {
-                              Navigator.of(ctx).pushNamed("/profile");
-                            },
+                    stream: FirebaseAuth.instance.currentUser().asStream(),
+                    builder: (BuildContext ctx,
+                        AsyncSnapshot<FirebaseUser> snapshot) {
+                      if (snapshot.data != null)
+                        return CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage: NetworkImage(snapshot.data.photoUrl),
+                          child: Material(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100.0)),
+                            child: InkWell(
+                              radius: 50.0,
+                              onTap: () {
+                                Navigator.of(ctx).pushNamed("/profile");
+                              },
+                            ),
                           ),
-                        ),
-                      ),
-                ),
+                        );
+                      else
+                        return CircleAvatar(
+                          radius: 50.0,
+                          backgroundColor: Colors.transparent,
+                          child: null,
+                        );
+                    }),
                 Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
                 ),
@@ -95,8 +107,8 @@ class UserPage extends StatelessWidget {
 
   Widget buttonText(data, index) {
     return StoreConnector<AppState, dynamic>(
-        converter: (store) => () => store.state.user,
-        builder: (ctx, callback) {
+        converter: (store) => store.state.user,
+        builder: (ctx, user) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
@@ -112,7 +124,7 @@ class UserPage extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Text(
-                  '${callback().getProgress(navigatorTitles[index])}%',
+                  '${user.getProgress(navigatorTitles[index])}%',
                   style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
