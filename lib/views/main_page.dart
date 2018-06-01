@@ -37,7 +37,7 @@ class MainPageState extends State<MainPage> {
     return StoreConnector<AppState, dynamic>(
         converter: (store) => store,
         builder: (context, store) {
-          if (intro) return IntroPage();
+          if (intro) return IntroPage(store: store);
           else if (store.state.user == null) {
             if (store.state.pending) return LoadingPage();
             return LoginPage();
