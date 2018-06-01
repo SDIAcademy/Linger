@@ -6,7 +6,7 @@ class EmailForm extends StatefulWidget {
   _EmailFormState createState() => new _EmailFormState();
 }
 
-class _EmailFormState extends State<EmailForm> {
+class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
   final formKey = GlobalKey<FormState>();
 
   String _email, _username, _password;
@@ -14,6 +14,8 @@ class _EmailFormState extends State<EmailForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -25,26 +27,27 @@ class _EmailFormState extends State<EmailForm> {
             colorBlendMode: BlendMode.darken,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 70.0),
+            padding: EdgeInsets.symmetric(horizontal: 50.0),
             child: Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    "linger",
-                    style: TextStyle(
-                      fontSize: 120.0,
-                      fontFamily: 'Trattatello',
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
                   ),
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 25.0,
+                    ),
                     autocorrect: false,
                     decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
                       labelText: "Email:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -57,9 +60,20 @@ class _EmailFormState extends State<EmailForm> {
                         !str.contains('@') ? "Not a Valid Email!" : null,
                     onSaved: (str) => _email = str,
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
+                  ),
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 25.0,
+                    ),
                     autocorrect: false,
                     decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
                       labelText: "Username:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -72,9 +86,20 @@ class _EmailFormState extends State<EmailForm> {
                         str.length <= 5 ? "Not a Valid Username!" : null,
                     onSaved: (str) => _username = str,
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
+                  ),
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 25.0,
+                    ),
                     autocorrect: false,
                     decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
                       labelText: "Password:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -89,13 +114,18 @@ class _EmailFormState extends State<EmailForm> {
                     obscureText: true,
                   ),
                   Padding(padding: EdgeInsets.all(10.0)),
-                  FlatButton(
-                    child: Text("Submit",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        )),
-                    onPressed: handleSubmit,
+                  Material(
+                    borderRadius: BorderRadius.circular(30.0),
+                    shadowColor: Colors.pinkAccent.shade100,
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      height: 42.0,
+                      minWidth: 400.0,
+                      onPressed: handleSubmit,
+                      color: Colors.pinkAccent,
+                      child: Text('Sign Up',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                 ],
               ),
