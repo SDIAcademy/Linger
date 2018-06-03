@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:speech_recognition/speech_recognition.dart';
-
 class WorkQuiz extends StatefulWidget {
   @override
   _WorkQuizState createState() => new _WorkQuizState();
@@ -38,40 +37,42 @@ class _WorkQuizState extends State<WorkQuiz> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text('SpeechRecognition'),
-      ),
-      body: new Padding(
-        padding: new EdgeInsets.all(8.0),
-        child: new Center(
-          child: new Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              new Expanded(
-                  child: new Container(
-                      padding: const EdgeInsets.all(8.0),
-                      color: Colors.grey.shade200,
-                      child: new Text(transcription))),
-              _buildButton(
-                onPressed: _speechRecognitionAvailable && !_isListening
-                    ? () => start()
-                    : null,
-                label:
-                    _isListening ? 'Listening...' : 'Listen ($_currentLocale)',
-              ),
-              _buildButton(
-                onPressed: _isListening ? () => cancel() : null,
-                label: 'Cancel',
-              ),
-              _buildButton(
-                onPressed: _isListening ? () => stop() : null,
-                label: 'Stop',
-              ),
-            ],
-          ),
+    return new MaterialApp(
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('SpeechRecognition'),
         ),
+        body: new Padding(
+            padding: new EdgeInsets.all(8.0),
+            child: new Center(
+              child: new Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  new Expanded(
+                      child: new Container(
+                          padding: const EdgeInsets.all(8.0),
+                          color: Colors.grey.shade200,
+                          child: new Text(transcription))),
+                  _buildButton(
+                    onPressed: _speechRecognitionAvailable && !_isListening
+                        ? () => start()
+                        : null,
+                    label: _isListening
+                        ? 'Listening...'
+                        : 'Listen ($_currentLocale)',
+                  ),
+                  _buildButton(
+                    onPressed: _isListening ? () => cancel() : null,
+                    label: 'Cancel',
+                  ),
+                  _buildButton(
+                    onPressed: _isListening ? () => stop() : null,
+                    label: 'Stop',
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
@@ -100,8 +101,8 @@ class _WorkQuizState extends State<WorkQuiz> {
   void onSpeechAvailability(bool result) =>
       setState(() => _speechRecognitionAvailable = result);
 
-  void onCurrentLocale(String locale) => null;
-      // setState(() => _currentLocale = locale);
+  void onCurrentLocale(String locale) =>
+      setState(() => _currentLocale = 'en_US');
 
   void onRecognitionStarted() => setState(() => _isListening = true);
 

@@ -7,7 +7,7 @@ import 'package:redux/redux.dart';
 
 class IntroPage extends StatefulWidget {
   final Store store;
-  IntroPage({this.store});
+  IntroPage(this.store);
   @override
   _IntroPageState createState() => new _IntroPageState();
 }

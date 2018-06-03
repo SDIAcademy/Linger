@@ -38,13 +38,13 @@ class MainPageState extends State<MainPage> {
         converter: (store) => store,
         builder: (context, store) {
           if (intro)
-            return IntroPage();
+            return IntroPage(store);
           // return IntroPage(store: store);
           else if (store.state.user == null) {
             if (store.state.pending) return LoadingPage();
             return LoginPage();
           } else {
-            store.dispatch(LoadingAction(pending: false));
+            // store.dispatch(LoadingAction(pending: false));
             return UserPage();
           }
         });
