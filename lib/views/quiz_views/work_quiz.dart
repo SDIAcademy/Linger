@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_recognition/speech_recognition.dart';
+
 class WorkQuiz extends StatefulWidget {
   @override
   _WorkQuizState createState() => new _WorkQuizState();
@@ -24,15 +25,14 @@ class _WorkQuizState extends State<WorkQuiz> {
   // Platform messages are asynchronous, so we initialize in an async method.
   void activateSpeechRecognizer() {
     print('_WorkQuizState.activateSpeechRecognizer... ');
-    _speech = new SpeechRecognition();
-    _speech.setAvailabilityHandler(onSpeechAvailability);
-    _speech.setCurrentLocaleHandler(onCurrentLocale);
-    _speech.setRecognitionStartedHandler(onRecognitionStarted);
-    _speech.setRecognitionResultHandler(onRecognitionResult);
-    _speech.setRecognitionCompleteHandler(onRecognitionComplete);
-    _speech
-        .activate()
-        .then((res) => setState(() => _speechRecognitionAvailable = res));
+    _speech = new SpeechRecognition()
+      ..setAvailabilityHandler(onSpeechAvailability)
+      ..setCurrentLocaleHandler(onCurrentLocale)
+      ..setRecognitionStartedHandler(onRecognitionStarted)
+      ..setRecognitionResultHandler(onRecognitionResult)
+      ..setRecognitionCompleteHandler(onRecognitionComplete)
+      ..activate()
+          .then((res) => setState(() => _speechRecognitionAvailable = res));
   }
 
   @override
@@ -89,7 +89,7 @@ class _WorkQuizState extends State<WorkQuiz> {
       ));
 
   void start() => _speech
-      .listen(locale: _currentLocale)
+      .listen(locale: 'en_US')
       .then((result) => print('_WorkQuizState.start => result $result'));
 
   void cancel() =>

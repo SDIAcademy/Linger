@@ -29,7 +29,7 @@ class MainPageState extends State<MainPage> {
         () => setState(() {
               intro = false;
             }),
-        2000);
+        3000);
   }
 
   @override
