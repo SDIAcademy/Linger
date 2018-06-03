@@ -1,4 +1,4 @@
-import 'package:linger/data/repo.dart';
+import 'package:linger/models/data/repo.dart';
 
 import 'mock_data.dart';
 import 'prod_data.dart';

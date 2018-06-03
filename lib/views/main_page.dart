@@ -21,23 +21,25 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   bool intro;
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      intro = true;
-      startTimeout(
-        () => setState((){
-          intro = false;
-        }),
-        3000
-      );
-    }
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    intro = true;
+    startTimeout(
+        () => setState(() {
+              intro = false;
+            }),
+        2000);
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, dynamic>(
         converter: (store) => store,
         builder: (context, store) {
-          if (intro) return IntroPage(store: store);
+          if (intro)
+            return IntroPage();
+          // return IntroPage(store: store);
           else if (store.state.user == null) {
             if (store.state.pending) return LoadingPage();
             return LoginPage();
@@ -57,8 +59,7 @@ class UserPage extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           Image(
-            image: NetworkImage(
-                "https://images.homedepot-static.com/productImages/e8ff78f4-5f22-408e-bce3-2bec3f1b3cc6/svn/saratoga-hickory-trafficmaster-laminate-wood-flooring-34089-64_1000.jpg"),
+            image: AssetImage("assets/bg/wood.png"),
             fit: BoxFit.cover,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -96,12 +97,12 @@ class UserPage extends StatelessWidget {
                         );
                     }),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: EdgeInsets.only(bottom: 40.0),
                 ),
-                buttonItem(0),
-                buttonItem(1),
-                buttonItem(2),
-                buttonItem(3),
+                buttonItem(0, context),
+                buttonItem(1, context),
+                buttonItem(2, context),
+                buttonItem(3, context),
               ],
             ),
           ),
@@ -110,16 +111,19 @@ class UserPage extends StatelessWidget {
     );
   }
 
-  Widget buttonItem(num index) {
+  Widget buttonItem(num index, BuildContext ctx) {
     var data = navigatorButtonData[index];
     return new Padding(
       padding: const EdgeInsets.all(8.0),
       child: SemiRoundedBorderButton(
-        onPressed: () {},
+        onPressed: () {
+          print(data.quiz);
+          Navigator.of(ctx).pushNamed(data.quiz);
+        },
         width: 280.0,
         height: 60.0,
         color: data.colorOverlay,
-        radius: BorderRadius.all(Radius.circular(28.0)),
+        radius: BorderRadius.all(Radius.circular(10.0)),
         background: NetworkImage(data.imageUrl),
         //  Color(0xFF83ADA8),
         child: Center(
@@ -143,16 +147,18 @@ class UserPage extends StatelessWidget {
                 Text(
                   data.title,
                   style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 25.0,
+                    fontFamily: "Brela",
+                    color: Colors.white,
+                  ),
                 ),
                 Text(
                   '${user.getProgress(navigatorTitles[index])}%',
                   style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 25.0,
+                    fontFamily: "Brela",
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),

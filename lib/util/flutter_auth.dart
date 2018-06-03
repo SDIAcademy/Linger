@@ -14,18 +14,18 @@ class FireBaseApi {
   FireBaseApi([this.firebaseUser]);
 
   static Future<FireBaseApi> signInWithGoogle(
-      {dynamic viewModel, bool slient}) async {
+      {dynamic viewModel, bool silent}) async {
     GoogleSignInAccount googleUser;
-    if (slient) {
+    if (silent) {
       try {
         googleUser = await _googleSignIn.isSignedIn() ? await _googleSignIn.signInSilently() : null;
       } catch (e) {
-        return null;
+        return null; 
       }
     } else
       googleUser = await _googleSignIn.signIn();
 
-    if (viewModel != null) viewModel(pending: true);
+    if (!silent) viewModel(pending: true);
 
     if (googleUser != null) {
       final GoogleSignInAuthentication googleAuth =
@@ -44,20 +44,20 @@ class FireBaseApi {
         final FirebaseUser currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
       } catch (e) {
-        if (viewModel != null) viewModel(pending: false);
+        if (!silent) viewModel(pending: false);
       }
       return FireBaseApi(user);
     }
-    if (viewModel != null) viewModel(pending: false);
+    if (!silent) viewModel(pending: false);
     return null;
   }
 
-  static Future<Null> loginUser({method, viewModel, slient}) async {
+  static Future<Null> loginUser({method, viewModel, silent}) async {
     var api;
     switch (method) {
       case "google":
         api = await FireBaseApi.signInWithGoogle(
-            viewModel: viewModel, slient: slient ?? false);
+            viewModel: viewModel, silent: silent ?? false);
         break;
       case "facebook":
         break;

@@ -18,8 +18,7 @@ class LoginPageState extends State<LoginPage> {
         fit: StackFit.expand,
         children: <Widget>[
           Image(
-            image: NetworkImage(
-                "https://images.homedepot-static.com/productImages/e8ff78f4-5f22-408e-bce3-2bec3f1b3cc6/svn/saratoga-hickory-trafficmaster-laminate-wood-flooring-34089-64_1000.jpg"),
+            image: AssetImage("assets/bg/wood.png"),
             fit: BoxFit.cover,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -35,7 +34,7 @@ class LoginPageState extends State<LoginPage> {
                     fontFamily: 'Trattatello',
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.yellowAccent,
                   ),
                 ),
                 Padding(

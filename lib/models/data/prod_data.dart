@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:linger/data/data.dart';
-import 'package:linger/data/repo.dart';
+import 'package:linger/models/data/data.dart';
+import 'package:linger/models/data/repo.dart';
 
-class MockRepo implements Repo{
+class ProdRepo implements Repo{
   static const URL = '';
   @override
   Future<List> fetchData(http.Client client) async {

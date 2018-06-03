@@ -27,33 +27,30 @@ class SemiRoundedBorderButton extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: ClipRect(
-        clipper: SemiRoundedBorderClipper(borderSide.width),
+      child: Material(
+        borderRadius: radius,
         child: Stack(
+          fit: StackFit.expand,
           children: <Widget>[
-            Positioned.fill(
-              child: DecoratedBox(
-                decoration: ShapeDecoration(
-                  image: DecorationImage(
-                    colorFilter: ColorFilter.mode(color, BlendMode.darken),
-                    image: background,
-                    fit: BoxFit.cover,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    side: borderSide,
-                    borderRadius: radius,
-                  ),
+            DecoratedBox(
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(color, BlendMode.darken),
+                  image: background,
+                  fit: BoxFit.cover,
                 ),
-                child: child,
-              ),
-            ),
-            Positioned.fill(
-              child: new Material(
-                color: Colors.transparent,
-                child: new InkWell(
+                shape: RoundedRectangleBorder(
+                  side: borderSide,
                   borderRadius: radius,
-                  onTap: () => onPressed,
                 ),
+              ),
+              child: child,
+            ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: radius,
+                onTap: onPressed,
               ),
             ),
           ],
@@ -63,20 +60,20 @@ class SemiRoundedBorderButton extends StatelessWidget {
   }
 }
 
-class SemiRoundedBorderClipper extends CustomClipper<Rect> {
-  final double borderStrokeWidth;
+// class SemiRoundedBorderClipper extends CustomClipper<Rect> {
+//   final double borderStrokeWidth;
 
-  SemiRoundedBorderClipper(this.borderStrokeWidth);
+//   SemiRoundedBorderClipper(this.borderStrokeWidth);
 
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTRB(0.0, 0.0, size.width, size.height - borderStrokeWidth);
-  }
+//   @override
+//   Rect getClip(Size size) {
+//     return Rect.fromLTRB(0.0, 0.0, size.width, size.height - borderStrokeWidth);
+//   }
 
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) {
-    if (oldClipper.runtimeType != SemiRoundedBorderClipper) return true;
-    return (oldClipper as SemiRoundedBorderClipper).borderStrokeWidth !=
-        borderStrokeWidth;
-  }
-}
+//   @override
+//   bool shouldReclip(CustomClipper<Rect> oldClipper) {
+//     if (oldClipper.runtimeType != SemiRoundedBorderClipper) return true;
+//     return (oldClipper as SemiRoundedBorderClipper).borderStrokeWidth !=
+//         borderStrokeWidth;
+//   }
+// }

@@ -4,8 +4,13 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: AnimatedOpacity(
+        duration: Duration(milliseconds: 200),
+        opacity: 1.0,
+        curve: Curves.easeIn,
+              child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }

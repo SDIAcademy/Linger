@@ -14,14 +14,13 @@ class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Image(
-            image: NetworkImage(
-                "https://images.homedepot-static.com/productImages/e8ff78f4-5f22-408e-bce3-2bec3f1b3cc6/svn/saratoga-hickory-trafficmaster-laminate-wood-flooring-34089-64_1000.jpg"),
+            image: AssetImage("assets/bg/wood.png"),
             fit: BoxFit.cover,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -47,7 +46,8 @@ class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
                       contentPadding:
                           EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
+                        borderRadius: BorderRadius.circular(7.0),
+                      ),
                       labelText: "Email:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -73,7 +73,7 @@ class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
                       contentPadding:
                           EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
+                          borderRadius: BorderRadius.circular(7.0),),
                       labelText: "Username:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -99,7 +99,7 @@ class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
                       contentPadding:
                           EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
+                          borderRadius: BorderRadius.circular(7.0),),
                       labelText: "Password:",
                       labelStyle: TextStyle(
                         fontSize: 20.0,
@@ -116,13 +116,13 @@ class _EmailFormState extends State<EmailForm> with TickerProviderStateMixin {
                   Padding(padding: EdgeInsets.all(10.0)),
                   Material(
                     borderRadius: BorderRadius.circular(30.0),
-                    shadowColor: Colors.pinkAccent.shade100,
+                    shadowColor: Colors.cyanAccent.shade200,
                     elevation: 5.0,
                     child: MaterialButton(
                       height: 42.0,
                       minWidth: 400.0,
                       onPressed: handleSubmit,
-                      color: Colors.pinkAccent,
+                      color: Theme.of(context).buttonColor,
                       child: Text('Sign Up',
                           style: TextStyle(color: Colors.white)),
                     ),

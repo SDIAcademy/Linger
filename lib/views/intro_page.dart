@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:linger/presenters/redux.dart';
+import 'package:linger/views/loading_page.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:linger/util/flutter_auth.dart';
 import 'package:redux/redux.dart';
 
 class IntroPage extends StatefulWidget {
-  Store store;
+  final Store store;
   IntroPage({this.store});
   @override
   _IntroPageState createState() => new _IntroPageState();
@@ -22,7 +23,7 @@ class _IntroPageState extends State<IntroPage> {
       if (pending != null)
         widget.store.dispatch(LoadingAction(pending: pending));
     };
-    FireBaseApi.loginUser(viewModel: viewModel, method: "google", slient: true);
+    FireBaseApi.loginUser(viewModel: viewModel, method: "google", silent: true);
   }
 
   @override
@@ -35,13 +36,7 @@ class _IntroPageState extends State<IntroPage> {
             },
         builder: (context, viewModel) {
           return Scaffold(
-            body: Container(
-              color: Colors.greenAccent,
-              child: Center(
-                child:
-                    Text("IntroPage", style: Theme.of(context).textTheme.body1),
-              ),
-            ),
+            body: LoadingPage(),
           );
         });
   }
